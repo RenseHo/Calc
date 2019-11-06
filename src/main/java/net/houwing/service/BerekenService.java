@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class CalculatorService implements Calculator {
+public class BerekenService implements Bereken {
 
     @Override
     public List<String> setFormule(int pos1, int pos2, int pos3, List<String> formuleIn){

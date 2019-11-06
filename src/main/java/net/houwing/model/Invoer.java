@@ -1,6 +1,6 @@
 package net.houwing.model;
 
-import net.houwing.service.Calculator;
+import net.houwing.service.Bereken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,62 +12,48 @@ import java.util.Scanner;
 public class Invoer {
 
     private Scanner in = new Scanner(System.in);
-    private Calculator calculator;
+    private Bereken bereken;
 
     @Autowired
-    Invoer(Calculator calculator) {
-        this.calculator = calculator;
+    Invoer(Bereken bereken) {
+        this.bereken = bereken;
     }
 
 
     public void startCalculator() {
         boolean running = true;
-        boolean fouteInvoer = true;
         List<String> history = new ArrayList<>();
-        String rest;
-        String inputUser="";
-        while (fouteInvoer) {
-            System.out.println("Voer de formule in en sluit af met ENTER. Om te stoppen type EXIT");
-            inputUser = in.nextLine().toLowerCase();
-            rest = inputUser.replaceAll("[0-9+*()\\-/.exit]", "");
-            if(rest.isEmpty() | rest.equals("exit")){
-                fouteInvoer = false;
-            }else{
-                System.out.println("FOUTE INVOER. De waarden '"+rest+ "' worden NIET ondersteund. Probeer het nog eens");
-                fouteInvoer = true;
-            }
-        }
-        if (inputUser.equals("exit")) {
-            running = false;
-        }
         while (running) {
-            String result;
-            history.add(inputUser);
-            List<String> formuleStrings = setFormuleArray(inputUser);
-            result = calculateResult(formuleStrings);
-            System.out.println("De uitkomst IS : " + result);
-            fouteInvoer = true;
-            while (fouteInvoer) {
-                System.out.println("Voer de formule in en sluit af met ENTER. Om te stoppen type EXIT");
-                inputUser = in.nextLine();
-                rest = inputUser.replaceAll("[0-9+*()\\-/.exit]", "");
-                if(rest.isEmpty() | rest.equals("EXIT")){
-                    fouteInvoer = false;
+            String inputUser ="start";
+            String restInput = "start";
+            while (!restInput.isEmpty()) {
+                if (restInput.equals("start")) {
+                    System.out.println("Voer de formule in en sluit af met ENTER. Om te stoppen type EXIT");
                 }else{
-                    System.out.println("Foute invoer. De waarden '"+rest+ "' worden NIET ondersteund. Probeer het nog eens");
-                    fouteInvoer = true;
+                    System.out.println("FOUTE INVOER. De waarden '" + restInput + "' worden NIET ondersteund.");
+                    System.out.println("Voer een formule in. Sluit af met een ENTER. Om te stoppen type EXIT.");
                 }
+                inputUser = in.nextLine().toLowerCase();
+                // ToDo Maak een betere regular expression... bijvb... inputUser.matches(...) ??
+                restInput = inputUser.replaceAll("[0-9+*()\\-/.exit]", "");
+                //
             }
-            if (inputUser.equals("exit")) {
+            if (!inputUser.equals("exit")) {
+                String result;
+                history.add(inputUser);
+                List<String> formuleStrings = setFormuleArray(inputUser);
+                result = calculateResult(formuleStrings);
+                System.out.println("De uitkomst IS : " + result);
+            }else{
                 running = false;
-            }
-        }
-        System.out.println("De ingevoerde formules zijn : ");
-        if(history.isEmpty()) {
-            System.out.println("....Geen formules berekend....");
-        }else{
-            for (String item:history){
-                System.out.println(item);
+                System.out.println("De ingevoerde formules zijn : ");
+                if (history.isEmpty()) {
+                    System.out.println("....Geen formules berekend....");
+                }else{
+                    for (String item : history) {
+                        System.out.println(item);
+                    }
+                }
             }
         }
     }
@@ -146,7 +132,7 @@ public class Invoer {
             positie1=found-3;
             positie2=found-2;
             positie3=found-1;
-            formule = calculator.setFormule(positie1,positie2,positie3,formule);
+            formule = bereken.setFormule(positie1,positie2,positie3,formule);
             formule.remove(positie2);
             formule.remove(positie1-1);
             System.out.print("Tussen waarde : ");
@@ -172,7 +158,7 @@ public class Invoer {
             }
             positie1=positie2-1;
             positie3=positie2+1;
-            formule = calculator.setFormule(positie1,positie2,positie3,formule);
+            formule = bereken.setFormule(positie1,positie2,positie3,formule);
             System.out.print("Tussen waarde : ");
             for (String item:formule){
                 System.out.print(item);
@@ -195,7 +181,7 @@ public class Invoer {
             }
             positie1=positie2-1;
             positie3=positie2+1;
-            formule = calculator.setFormule(positie1,positie2,positie3,formule);
+            formule = bereken.setFormule(positie1,positie2,positie3,formule);
             System.out.print("Tussen waarde : ");
             for (String item:formule){
                 System.out.print(item);

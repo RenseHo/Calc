@@ -1,6 +1,6 @@
 package net.houwing.model;
 
-import net.houwing.service.CalculatorService;
+import net.houwing.service.BerekenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +13,12 @@ import static org.assertj.core.api.Assertions.*;
 class InvoerTest {
 
     private Invoer invoer ;
-    private CalculatorService calculatorService;
+    private BerekenService calculatorService;
     private List<String> formule = new ArrayList<>();
 
     @BeforeEach
     void setup(){
-        this.calculatorService = new CalculatorService();
+        this.calculatorService = new BerekenService();
         this.invoer= new Invoer(calculatorService);
         formule.clear();
         formule.add("1");
