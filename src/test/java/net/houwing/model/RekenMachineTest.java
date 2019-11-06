@@ -1,6 +1,7 @@
 package net.houwing.model;
 
 import net.houwing.service.BerekenService;
+import net.houwing.service.FormatteringService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,16 +11,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 
-class InvoerTest {
+class RekenMachineTest {
 
-    private Invoer invoer ;
-    private BerekenService calculatorService;
+    private RekenMachine rekenMachine;
+    private BerekenService berekenService;
+    private FormatteringService formatteringService;
     private List<String> formule = new ArrayList<>();
 
     @BeforeEach
     void setup(){
-        this.calculatorService = new BerekenService();
-        this.invoer= new Invoer(calculatorService);
+        this.berekenService = new BerekenService();
+        this.rekenMachine = new RekenMachine(berekenService);
         formule.clear();
         formule.add("1");
         formule.add("+");
@@ -39,7 +41,7 @@ class InvoerTest {
     void testSetFormuleArray(){
 
         String input = "1+12*(5-3)*2";          //vergelijken of de inhoud van 2 lists gelijk zijn.
-        List<String> resultaat = invoer.setFormuleArray(input);
+        List<String> resultaat = formatteringService.formuleFormattering(input);
 
         assertThat(resultaat).containsExactly("1","+","12","*","(","5","-","3",")","*","2");
       //assertEquals();
@@ -49,7 +51,7 @@ class InvoerTest {
     void testCalculateResult(){
 
 
-        String resultaat = invoer.calculateResult(formule);
+        String resultaat = berekenService.berekenResultaat(formule);
         assertThat(resultaat).isEqualTo("2");
     }
     @Test
@@ -69,7 +71,7 @@ class InvoerTest {
         formuleString.add(")");
         formuleString.add("*");
         formuleString.add("2");
-        List<String> testFormule = calculatorService.setFormule(positie1,positie2,positie3,formuleString);
+        List<String> testFormule = berekenService.setFormule(positie1,positie2,positie3,formuleString);
         assertThat(testFormule).containsExactly("1","+","12","*","(","2",")","*","2");
         assertThat(testFormule.size()).isEqualTo(9);
 //        assertThatThrownBy(() -> calculatorService.setFormule(positie1,positie2,positie3,formuleString))
