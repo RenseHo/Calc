@@ -19,7 +19,7 @@ public class FormatteringService {
                 if (teken == '%' || teken == '/' || teken == '*' || teken == '+' || teken == '-' || teken == '(' || teken == ')') {
                     if (teken.equals('-')) {
                         boolean bepaalNeg = false;
-                        if (i == 0) {                                               //Negatieve waardeString start op index 0 dus i
+                        if (i == 0) {                                               //Negatieve waardeString start op index 0
                             System.out.println("Negatief waardeString op positie 1. Vervolgens de grootte van het neg geal bepalen...");
                             bepaalNeg = true;
                         } else if (!Character.isDigit(input.charAt(i - 1))) {        //Negatieve waardeString start op index i

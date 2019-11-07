@@ -1,5 +1,6 @@
 package net.houwing.model;
 
+import net.houwing.service.Bereken;
 import net.houwing.service.BerekenService;
 import net.houwing.service.FormatteringService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,7 @@ class RekenMachineTest {
     void setup(){
         this.berekenService = new BerekenService();
         this.rekenMachine = new RekenMachine(berekenService);
+        //this.rekenMachine = new RekenMachine(new BerekenService());
         formule.clear();
         formule.add("1");
         formule.add("+");
@@ -38,46 +40,37 @@ class RekenMachineTest {
     }
 
     @Test
-    void testSetFormuleArray(){
-
-        String input = "1+12*(5-3)*2";          //vergelijken of de inhoud van 2 lists gelijk zijn.
-        List<String> resultaat = formatteringService.formuleFormattering(input);
-
-        assertThat(resultaat).containsExactly("1","+","12","*","(","5","-","3",")","*","2");
-      //assertEquals();
+    public void testGebruikRekenMachine(){
+        //ToDo moet ik hier wat mee?
     }
 
     @Test
     void testCalculateResult(){
-
-
-        String resultaat = berekenService.berekenResultaat(formule);
+      String resultaat = berekenService.berekenResultaat(formule);
         assertThat(resultaat).isEqualTo("2");
     }
-    @Test
-    void testSetFormule(){
-        int positie1 = 5;
-        int positie2 = 6;
-        int positie3 = 7;
-        List<String> formuleString = new ArrayList<>();
-        formuleString.add("1");
-        formuleString.add("+");
-        formuleString.add("12");
-        formuleString.add("*");
-        formuleString.add("(");
-        formuleString.add("5");
-        formuleString.add("-");
-        formuleString.add("3");
-        formuleString.add(")");
-        formuleString.add("*");
-        formuleString.add("2");
-        List<String> testFormule = berekenService.setFormule(positie1,positie2,positie3,formuleString);
-        assertThat(testFormule).containsExactly("1","+","12","*","(","2",")","*","2");
-        assertThat(testFormule.size()).isEqualTo(9);
-//        assertThatThrownBy(() -> calculatorService.setFormule(positie1,positie2,positie3,formuleString))
-//                .isInstanceOf(Throwable.class)
-//                .hasMessage("Error tekst");
-    }
-
-
+//    @Test
+//    void testSetFormule(){
+//        int positie1 = 5;
+//        int positie2 = 6;
+//        int positie3 = 7;
+//        List<String> formuleString = new ArrayList<>();
+//        formuleString.add("1");
+//        formuleString.add("+");
+//        formuleString.add("12");
+//        formuleString.add("*");
+//        formuleString.add("(");
+//        formuleString.add("5");
+//        formuleString.add("-");
+//        formuleString.add("3");
+//        formuleString.add(")");
+//        formuleString.add("*");
+//        formuleString.add("2");
+//        List<String> testFormule = berekenService.setFormule(positie1,positie2,positie3,formuleString);
+//        assertThat(testFormule).containsExactly("1","+","12","*","(","2",")","*","2");
+//        assertThat(testFormule.size()).isEqualTo(9);
+////        assertThatThrownBy(() -> calculatorService.setFormule(positie1,positie2,positie3,formuleString))
+////                .isInstanceOf(Throwable.class)
+////                .hasMessage("Error tekst");
+//    }
 }

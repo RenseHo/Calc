@@ -6,6 +6,8 @@ import net.houwing.service.BerekenService;
 import net.houwing.service.FormatteringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +24,7 @@ public class RekenMachine {
 
     public void gebruikRekenMachine() {
         boolean running = true;
+        String vorigeResultaatFormule = "";
         //List<String> history = new ArrayList<>();
         while (running) {
             String inputUser ="start";
@@ -34,16 +37,22 @@ public class RekenMachine {
                     System.out.println("Voer een formule in. Sluit af met een ENTER. Om te stoppen type EXIT.");
                 }
                 inputUser = in.nextLine().toLowerCase();
-                // ToDo Maak een betere regular expression... bijvb... inputUser.matches(...) ??
-                restantInput = inputUser.replaceAll("[0-9+*()\\-/.exit]", "");
-                //
+                restantInput = inputUser.replaceAll("hist[\\+\\-\\*/][0-9]|exit|[0-9]|-|\\+|\\*|\\(|\\)|/|\\.", "");
             }
             if (!inputUser.equals("exit")) {
                 String resultaatFormule;
+                if (inputUser.startsWith("hist") & !vorigeResultaatFormule.equals("")) {
+                    inputUser = vorigeResultaatFormule.concat(inputUser.substring(4));
+                }
+                if (inputUser.startsWith("hist") & vorigeResultaatFormule.equals("")){
+                    inputUser = inputUser.substring(5);
+                    System.out.println("Vorige resultaat bestaat niet, dus hist genegeerd.");
+                }
                 history.addHistory(inputUser);
                 List<String> formuleStrings = formatteringService.formuleFormattering(inputUser);
                 resultaatFormule = bereken.berekenResultaat(formuleStrings);
                 System.out.println("De uitkomst van de formule \""+inputUser+ "\" is : " + resultaatFormule);
+                vorigeResultaatFormule = resultaatFormule;
             }else{
                 running = false;
                 System.out.println("De ingevoerde formules zijn : ");
@@ -54,6 +63,8 @@ public class RekenMachine {
                         System.out.println(historyItem);
                     }
                 }
+                System.out.print("Druk op ENTER om het scherm te sluiten .....");
+                in.nextLine();
             }
         }
     }
