@@ -16,13 +16,14 @@ class RekenMachineTest {
 
     private RekenMachine rekenMachine;
     private BerekenService berekenService;
+    private Bereken bereken;
     private FormatteringService formatteringService;
     private List<String> formule = new ArrayList<>();
 
     @BeforeEach
     void setup(){
         this.berekenService = new BerekenService();
-        this.rekenMachine = new RekenMachine(berekenService);
+        this.rekenMachine = new RekenMachine(bereken);
         //this.rekenMachine = new RekenMachine(new BerekenService());
         formule.clear();
         formule.add("1");

@@ -1,43 +1,72 @@
 package net.houwing.service;
 
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class BerekenService implements Bereken {
 
-    @Override
     public List<String> setFormule(int pos1, int pos2, int pos3, List<String> formuleIn){
+        //ToDo als userInput begint met * of / komt er een exception
         String eersteGetal = formuleIn.get(pos1);
         String operator = formuleIn.get(pos2);
         String tweedeGetal
                 = formuleIn.get(pos3);
-        int result3 = 0;
+        double result3 = 0;
         try {
             switch (operator) {
                 case "*":
-                    result3 =  Integer.parseInt(eersteGetal) * Integer.parseInt(tweedeGetal);
+                    result3 =  Double.parseDouble(eersteGetal) * Double.parseDouble(tweedeGetal);
                     break;
                 case "/":
-                    result3 =  Integer.parseInt(eersteGetal) / Integer.parseInt(tweedeGetal);
+                    result3 =  Double.parseDouble(eersteGetal) / Double.parseDouble(tweedeGetal);
                     break;
                 case "+":
-                    result3 =  Integer.parseInt(eersteGetal) + Integer.parseInt(tweedeGetal);
+                    result3 =  Double.parseDouble(eersteGetal) + Double.parseDouble(tweedeGetal);
                     break;
                 case"-":
-                    result3 =  Integer.parseInt(eersteGetal) - Integer.parseInt(tweedeGetal);
+                    result3 =  Double.parseDouble(eersteGetal) - Double.parseDouble(tweedeGetal);
                     break;
             }
         } catch (NumberFormatException e) {
             System.out.println("Voer een juiste formule in!!!");
         }
-        formuleIn.set(pos1,Integer.toString(result3));
+        formuleIn.set(pos1,Double.toString(result3));
         formuleIn.remove(pos3);
         formuleIn.remove(pos2);
         return formuleIn;
     }
 
-    @Override
+    public List<String> berekenFuncties(List<String> formuleStrings, Character[] checkFunctions) {
+        //int found;
+        //List<String> formule = inputUser;
+        boolean found = false;
+        //found = inputUser.indexOf(")");
+
+        for (int i = 0; i < formuleStrings.size(); i++) {
+            String userString = formuleStrings.get(i);
+            char toCheck = userString.charAt(0);
+            for (Character functieItem : checkFunctions) {
+                found = functieItem.equals(toCheck);
+                break;
+            }
+            if (found){
+                StringBuilder functie= new StringBuilder();
+                functie.append(userString.charAt(0));
+                System.out.println("User String is "+userString);
+                for (int k = 1; k < userString.length(); k++)
+                    if (userString.charAt(k) != '('){
+                        functie.append(userString.charAt(k));
+                    }else{
+                       //ToDo TOT Hier... Kun je ook een naam aanroepen van een meyhode?
+                    }
+                }
+        }
+        return formuleStrings;
+    }
+
     public String berekenResultaat(List<String> inputUser){
         int found;
         int positie1;
@@ -50,6 +79,12 @@ public class BerekenService implements Bereken {
             System.out.print(item);
         }
         System.out.println();
+        /*
+        * Bereken eerst de functies.
+        * en dan de rest
+         */
+
+
         /*
          * Vind eerste (, bereken de waarde tussen () en
          * zet het resltaat terug in de formule array;
@@ -116,7 +151,9 @@ public class BerekenService implements Bereken {
             System.out.println();
         }
         uitKomst = formule.get(0);
-        //System.out.println("Resultaat : "+uitKomst);
+        if (uitKomst.substring(uitKomst.length()-2).equals(".0")){
+            uitKomst = uitKomst.substring(0,(uitKomst.length()-2));
+        }
         return uitKomst;
     }
 

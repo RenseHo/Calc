@@ -36,7 +36,7 @@ public class BerekenServiceTest {
         formuleString.add("*");
         formuleString.add("2");
         List<String> testFormule = berekenService.setFormule(positie1,positie2,positie3,formuleString);
-        assertThat(testFormule).containsExactly("-10","+","12","*","(","-2",")","*","2");
+        assertThat(testFormule).containsExactly("-10","+","12","*","(","-2.0",")","*","2");
         assertThat(testFormule.size()).isEqualTo(9);
 //        assertThatThrownBy(() -> calculatorService.setFormule(positie1,positie2,positie3,formuleString))
 //                .isInstanceOf(Throwable.class)

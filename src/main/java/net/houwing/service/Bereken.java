@@ -7,6 +7,8 @@ public interface Bereken {
 
     public List<String> setFormule(int pos1, int pos2, int pos3, List<String> formuleIn);
 
+    public List<String> berekenFuncties(List<String> inputUser, Character[] checkFunctions);
+
     public String berekenResultaat(List<String> inputUser);
 
 }
