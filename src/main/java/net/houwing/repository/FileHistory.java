@@ -1,8 +1,10 @@
 package net.houwing.repository;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Profile("file")
 public class FileHistory implements HistoryInterface {
 
 

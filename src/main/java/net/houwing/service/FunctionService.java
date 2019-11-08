@@ -16,14 +16,17 @@ public class FunctionService {
     public static double sqrt (double getal){                   // Worteltrekken...
         return Math.sqrt(getal);
     }
-    public static double pow (int grondtal, int exponenet ){    // Machtverheffen...
-        return Math.pow(grondtal,exponenet);
+    public static double pow (int grondtal, int exponent ){    // Machtverheffen...
+        return Math.pow(grondtal,exponent);
     }
     public static double exp (double getal){                    //Het getal van Euler.....
         return Math.exp(getal);
     }
     public static double pi (){                                 //Het getal PI.....
         return Math.PI;
+    }
+    public static double euler (){                                 //Het getal PI.....
+        return Math.E;
     }
 
 }
