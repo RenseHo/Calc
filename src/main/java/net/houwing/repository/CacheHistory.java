@@ -1,13 +1,11 @@
 package net.houwing.repository;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-//@Primary
 @Profile("cache")
 public class CacheHistory implements HistoryInterface {
 

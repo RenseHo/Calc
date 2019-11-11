@@ -60,7 +60,7 @@ public class BerekenService implements Bereken {
                     if (userString.charAt(k) != '('){
                         functie.append(userString.charAt(k));
                     }else{
-                       //ToDo TOT Hier... Kun je ook een naam aanroepen van een meyhode?
+                       //ToDo TOT Hier... Kun je ook een naam aanroepen van een methode?
                     }
                 }
         }
@@ -151,9 +151,10 @@ public class BerekenService implements Bereken {
             System.out.println();
         }
         uitKomst = formule.get(0);
-        if (uitKomst.substring(uitKomst.length()-2).equals(".0")){
-            uitKomst = uitKomst.substring(0,(uitKomst.length()-2));
-        }
+        Double numberDouble = Double.parseDouble(uitKomst);
+        if (Math.ceil(numberDouble) == Math.floor(numberDouble)){
+            uitKomst = uitKomst.substring(0,(uitKomst.indexOf('.')));
+        };
         return uitKomst;
     }
 

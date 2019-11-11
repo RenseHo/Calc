@@ -15,7 +15,6 @@ public class FormatteringService {
         functieTabel.put("tan",1);
         functieTabel.put("sqrt",1);
         functieTabel.put("pow",2);
-        functieTabel.put("exp",2);
         functieTabel.put("pi",0);
         functieTabel.put("euler",0);
 
@@ -88,10 +87,6 @@ public class FormatteringService {
                                     param1 = Double.parseDouble(functieArray.get(1));
                                     param2 = Double.parseDouble(functieArray.get(2));
                                     functieUitkomst =  Math.pow(param1,param2);
-                                    break;
-                                case "exp":
-                                    param1 = Double.parseDouble(functieArray.get(1));
-                                    functieUitkomst =  Math.exp(param1);
                                     break;
                                 case "pi":
                                     functieUitkomst =  Math.PI;

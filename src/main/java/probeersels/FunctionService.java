@@ -1,4 +1,4 @@
-package net.houwing.service;
+package probeersels;
 import java.lang.Math;
 
 public class FunctionService {

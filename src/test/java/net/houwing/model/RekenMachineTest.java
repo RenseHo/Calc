@@ -20,25 +20,25 @@ class RekenMachineTest {
     private FormatteringService formatteringService;
     private List<String> formule = new ArrayList<>();
 
-    @BeforeEach
-    void setup(){
-        this.berekenService = new BerekenService();
-        this.rekenMachine = new RekenMachine(bereken);
-        //this.rekenMachine = new RekenMachine(new BerekenService());
-        formule.clear();
-        formule.add("1");
-        formule.add("+");
-        formule.add("1");
-        formule.add("2");
-        formule.add("*");
-        formule.add("(");
-        formule.add("5");
-        formule.add("-");
-        formule.add("3");
-        formule.add(")");
-        formule.add("*");
-        formule.add("2");
-    }
+//    @BeforeEach
+//    void setup(){
+//        this.berekenService = new BerekenService();
+//        this.rekenMachine = new RekenMachine(bereken);
+//        //this.rekenMachine = new RekenMachine(new BerekenService());
+//        formule.clear();
+//        formule.add("1");
+//        formule.add("+");
+//        formule.add("1");
+//        formule.add("2");
+//        formule.add("*");
+//        formule.add("(");
+//        formule.add("5");
+//        formule.add("-");
+//        formule.add("3");
+//        formule.add(")");
+//        formule.add("*");
+//        formule.add("2");
+//    }
 
     @Test
     public void testGebruikRekenMachine(){

@@ -1,6 +1,10 @@
 package net.houwing.repository;
 
+import java.util.List;
+
 public interface HistoryInterface {
 
-    public void addHistory(String historyItem);
+    void addHistory(String historyItem);
+
+    List<String> getHistory();
 }
