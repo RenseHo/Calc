@@ -1,12 +1,19 @@
 package net.houwing.service;
 
+import net.houwing.repository.History;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class BerekenService implements Bereken {
+
+    private History history;
+
+    @Autowired
+    BerekenService(History history){
+        this.history = history;
+    }
 
     public List<String> setFormule(int pos1, int pos2, int pos3, List<String> formuleIn){
         //ToDo als userInput begint met * of / komt er een exception
@@ -39,46 +46,18 @@ public class BerekenService implements Bereken {
         return formuleIn;
     }
 
-    public List<String> berekenFuncties(List<String> formuleStrings, Character[] checkFunctions) {
-        //int found;
-        //List<String> formule = inputUser;
-        boolean found = false;
-        //found = inputUser.indexOf(")");
-
-        for (int i = 0; i < formuleStrings.size(); i++) {
-            String userString = formuleStrings.get(i);
-            char toCheck = userString.charAt(0);
-            for (Character functieItem : checkFunctions) {
-                found = functieItem.equals(toCheck);
-                break;
-            }
-            if (found){
-                StringBuilder functie= new StringBuilder();
-                functie.append(userString.charAt(0));
-                System.out.println("User String is "+userString);
-                for (int k = 1; k < userString.length(); k++)
-                    if (userString.charAt(k) != '('){
-                        functie.append(userString.charAt(k));
-                    }else{
-                       //ToDo TOT Hier... Kun je ook een naam aanroepen van een methode?
-                    }
-                }
-        }
-        return formuleStrings;
-    }
-
-    public String berekenResultaat(List<String> inputUser){
+    public String berekenResultaat(List<String> formule, String inputUser){
         int found;
         int positie1;
         int positie2;
         int positie3;
         String uitKomst;
-        List<String> formule = inputUser;
         System.out.print("Tussen waarde : ");
         for (String item:formule){
             System.out.print(item);
         }
         System.out.println();
+
         /*
         * Bereken eerst de functies.
         * en dan de rest
@@ -154,7 +133,8 @@ public class BerekenService implements Bereken {
         Double numberDouble = Double.parseDouble(uitKomst);
         if (Math.ceil(numberDouble) == Math.floor(numberDouble)){
             uitKomst = uitKomst.substring(0,(uitKomst.indexOf('.')));
-        };
+        }
+        history.addHistory(InvoerRekenMachine.inputUserOrgineel, Double.parseDouble(uitKomst));
         return uitKomst;
     }
 

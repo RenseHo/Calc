@@ -1,21 +1,24 @@
 package net.houwing.service;
 
-import net.houwing.model.RekenMachine;
+import net.houwing.repository.CacheHistory;
+import net.houwing.repository.History;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-import net.houwing.service.BerekenService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BerekenServiceTest {
 
     private BerekenService berekenService;
+    private History history;
+    private CacheHistory cacheHistory;
 
     @BeforeEach
     void setup(){
-        this.berekenService = new BerekenService();
+        this.history = new CacheHistory();
+        this.berekenService = new BerekenService(history);
     }
 
     @Test

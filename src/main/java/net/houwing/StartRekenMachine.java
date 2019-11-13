@@ -1,6 +1,6 @@
 package net.houwing;
 
-import net.houwing.model.RekenMachine;
+import net.houwing.service.InvoerRekenMachine;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class StartRekenMachine {
@@ -9,8 +9,8 @@ public class StartRekenMachine {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("net.houwing");
         //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        RekenMachine rekenMachine = context.getBean(RekenMachine.class);
-        rekenMachine.gebruikRekenMachine();
+        InvoerRekenMachine invoerRekenMachine = context.getBean(InvoerRekenMachine.class);
+        invoerRekenMachine.gebruikRekenMachine();
         //context.getBean(Invoer.class).startCalculator();
 //        //invoer.bereken();
     }
