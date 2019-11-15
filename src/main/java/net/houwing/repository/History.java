@@ -1,6 +1,5 @@
 package net.houwing.repository;
 
-import java.util.List;
 import java.util.Map;
 
 public interface History {

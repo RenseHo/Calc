@@ -1,9 +1,29 @@
 package net.houwing.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-//@Configuration
+import java.io.PrintStream;
+import java.util.Scanner;
+
+@Configuration
+@ComponentScan(basePackages = "net.houwing")
+@PropertySource("classpath:language.properties")
 public class AppConfig {
+
+    @Bean
+    public PrintStream printStream() {
+        PrintStream out = System.out;
+        return out;
+    }
+
+    @Bean
+    public Scanner scanner() {
+        return new Scanner(System.in);
+    }
+}
 
 //    @Bean
 //    public Invoer invoer () {
@@ -24,4 +44,4 @@ public class AppConfig {
 //            }
 //        };
 //    }
-}
+

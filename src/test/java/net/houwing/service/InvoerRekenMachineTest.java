@@ -6,8 +6,10 @@ import net.houwing.repository.History;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -15,6 +17,8 @@ import static org.assertj.core.api.Assertions.*;
 class InvoerRekenMachineTest {
 
     private InvoerRekenMachine invoerRekenMachine;
+    private Scanner in;
+    private PrintStream printStream;
     private Bereken bereken;
     private BerekenService berekenService;
     private History history;
@@ -28,7 +32,7 @@ class InvoerRekenMachineTest {
         this.cacheHistory = new CacheHistory();
         this.berekenService = new BerekenService(cacheHistory);
         this.fileHistory = new FileHistory();
-        this.invoerRekenMachine = new InvoerRekenMachine(history, bereken);
+        this.invoerRekenMachine = new InvoerRekenMachine(history, bereken, formatteringService, in, printStream);
         formule.clear();
         formule.add("1");
         formule.add("+");
